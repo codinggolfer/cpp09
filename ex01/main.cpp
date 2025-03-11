@@ -10,6 +10,7 @@ int main(int ac, char** av)  {
 		catch(...)
 		{
 			std::cerr << "Error" << '\n';
+			return 1;
 		}
     }
     else 

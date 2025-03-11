@@ -1,6 +1,6 @@
-NAME	=	RPN
+NAME	=	PmergeMe
 
-CFLAGS	=	-Wall -Wextra -Werror -std=c++20
+CFLAGS	=	-Wall -Wextra -Werror -std=c++2b
 
 FILES	=	main.cpp PmergeMe.cpp
 CC		=	c++
