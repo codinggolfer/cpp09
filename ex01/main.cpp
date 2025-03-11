@@ -2,8 +2,15 @@
 
 int main(int ac, char** av)  {
     if (ac == 2) {
-        RPN laskin;
-        laskin.calculate(av[1]);
+		try
+		{
+			RPN laskin;
+			laskin.calculate(av[1]);
+		}
+		catch(...)
+		{
+			std::cerr << "Error" << '\n';
+		}
     }
     else 
         std::cerr << "invalid amount of arguments\n";
