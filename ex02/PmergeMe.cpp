@@ -58,12 +58,33 @@ void PmergeMe::validateStr(char** args) {
 		if (ws.contains(tmp) || !isAllNumbers(args[i]))
 			throw std::invalid_argument("Error: invalid input");
 	}
+	auto startVec = std::chrono::high_resolution_clock::now();
+	auto startCue = std::chrono::high_resolution_clock::now();
 	fillVector(args);
+
+	vec = ::MySort(vec);
+	auto endVec = std::chrono::high_resolution_clock::now();
+
+	cue = ::MySort(cue);
+	auto endCue = std::chrono::high_resolution_clock::now();
+	::printContainer(vec, AFTER);
+	::printContainer(cue, AFTER);
+	double durationVec = std::chrono::duration<double, std::micro>(endVec - startVec).count();
+	double durationCue = std::chrono::duration<double, std::micro>(endCue - startCue).count();
+
+	std::cout << "Time to process a range of " << vec.size() 
+    	<< " elements with std::vector: " << durationVec << " us" << std::endl;
+	std::cout << "Time to process a range of " << cue.size() 
+    	<< " elements with std::deque: " << durationCue << " us" << std::endl;
 }
-
-
 
 PmergeMe::~PmergeMe() {
 	vec.clear();
 	cue.clear();
 }
+
+/* auto start = std::chrono::high_resolution_clock::now();
+    std::sort(data.begin(), data.end());
+    auto end = std::chrono::high_resolution_clock::now();
+
+    double duration = std::chrono::duration<double, std::micro>(end - start).count();*/
