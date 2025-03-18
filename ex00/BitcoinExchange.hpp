@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sstream>
+#include <chrono>
 
 
 template <typename T> void printBadInput(T date) {
@@ -32,9 +33,13 @@ template <typename T> void printValidInput(T map, std::string date, double amoun
     }
     else {
         auto lower = map.lower_bound(date);
+        auto higher = map.upper_bound(date);
 
+        
         if (lower == map.begin())
             std::cout << "nothing earlier found" << std::endl;
+        else if (higher == map.end())
+            std::cout << "nothing later found" << std::endl;
         else {
             --lower;
             std::cout << date << " => " << amount << " = " << multiply(amount, lower->second) << std::endl;
