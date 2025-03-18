@@ -17,8 +17,10 @@ void BitcoinExchange::readCsv() {
     std::ifstream f("data.csv");
     std::string price, date;
 
-    if (!f.is_open())
+    if (!f.is_open()) {
+		std::cout << "Error: incorrect .csv-file, should be (data.csv)\n";
         exit(1);
+	}
 
     std::getline(f, date);
     while (std::getline(f, date, ',') && std::getline(f, price)) {
@@ -49,31 +51,30 @@ bool checkDate(std::string dateStr) {
     int year, month, day;
     char dash1, dash2;
 
-    // Parse the string: "YYYY-MM-DD"
     std::istringstream iss(dateStr);
     if (!(iss >> year >> dash1 >> month >> dash2 >> day) || dash1 != '-' || dash2 != '-') {
-        return false;  // Parsing failed (wrong format)
+        return false;
     }
     if (month < 1 || month > 12 || day < 1 || day > 31) {
-        return false;  // Basic range check before using chrono
+        return false;
     }
-    // Create a year_month_day object
     std::chrono::year_month_day ymd{
         std::chrono::year{year},
         std::chrono::month{static_cast<unsigned int>(month)},
         std::chrono::day{static_cast<unsigned int>(day)}
     };
 
-    // Validate using .ok()
     return ymd.ok();
 }
 
 void BitcoinExchange::parseWallet(char* wallet) {
     std::ifstream f(wallet);
     std::string tmp;
-    if (!f.is_open())
-        exit(1);
-    std::getline(f, tmp); //assuming there is the header "date | value" in the beginning, if not comment this out
+    if (!f.is_open()) {
+		std::cout << "Error: could not open file.\n";
+        return ;
+	}
+    std::getline(f, tmp);
     while (std::getline(f, tmp)) {
         std::istringstream string(tmp);
         std::string price, date;
@@ -96,7 +97,8 @@ void BitcoinExchange::parseWallet(char* wallet) {
             }
             catch(const std::exception& e)
             {
-                std::cerr << e.what() << '\n';
+
+                std::cerr << "Error: std::stof overflows, please keep the value within std::stof boundaries." << '\n';
             }
         }
         else

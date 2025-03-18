@@ -37,9 +37,9 @@ template <typename T> void printValidInput(T map, std::string date, double amoun
 
         
         if (lower == map.begin())
-            std::cout << "nothing earlier found" << std::endl;
+            std::cout << "Error: nothing earlier found" << std::endl;
         else if (higher == map.end())
-            std::cout << "nothing later found" << std::endl;
+            std::cout << "Error: date out of range" << std::endl;
         else {
             --lower;
             std::cout << date << " => " << amount << " = " << multiply(amount, lower->second) << std::endl;
