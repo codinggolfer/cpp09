@@ -61,7 +61,7 @@ bool validateString(char* formula) {
 	getline(tmp, str);
 
 	if (!std::isdigit(str[0]))
-		throw("");
+		return false;
 	if (!tmp.eof())
 		return false;
 
@@ -78,7 +78,7 @@ bool validateString(char* formula) {
 		}
 	}
 
-	if (count <= operatorCount)
+	if (count - operatorCount != 1)
 		return false;
 	return true;
 }
