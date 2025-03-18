@@ -48,7 +48,7 @@ void PmergeMe::fillVector(char** args) {
 		
 	}
 	::printContainer(vec, BEFORE);
-	::printContainer(cue, BEFORE);
+	// ::printContainer(cue, BEFORE);
 }
 
 void PmergeMe::validateStr(char** args) {
@@ -68,7 +68,7 @@ void PmergeMe::validateStr(char** args) {
 	cue = ::MySort(cue);
 	auto endCue = std::chrono::high_resolution_clock::now();
 	::printContainer(vec, AFTER);
-	::printContainer(cue, AFTER);
+	// ::printContainer(cue, AFTER);
 	double durationVec = std::chrono::duration<double, std::micro>(endVec - startVec).count();
 	double durationCue = std::chrono::duration<double, std::micro>(endCue - startCue).count();
 
