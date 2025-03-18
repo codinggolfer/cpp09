@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <sstream>
 #include <chrono>
+#include <algorithm>
 
 
 template <typename T> void printBadInput(T date) {

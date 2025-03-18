@@ -74,6 +74,23 @@ std::string trim(const std::string& str) {
     return (start == std::string::npos || end == std::string::npos) ? "" : str.substr(start, end - start + 1);
 }
 
+bool isNumber(const std::string& str) {
+    if (str.empty()) 
+		return false;
+
+    bool hasDecimal = false;
+    
+    for (size_t i = 0; i < str.size(); i++) {
+        if (str[i] == '.' || str[i] == ',') {
+            if (hasDecimal || i == 0 || i == str.size() - 1) return false;
+            hasDecimal = true;
+        } 
+        else if (!isdigit(str[i])) {
+            return false; // Non-numeric character found
+        }
+    }
+    return true;
+}
 
 void BitcoinExchange::parseWallet(char* wallet) {
 	if (validCsv == false)
@@ -93,6 +110,11 @@ void BitcoinExchange::parseWallet(char* wallet) {
                 printBadInput(date);
                 continue;
             }
+			price = trim(price);
+			if (!isNumber(price)) {
+				printBadInput(date);
+                continue;
+			}
             try
             {
                 double amountOfBtc = static_cast<double>(std::stof(price));
