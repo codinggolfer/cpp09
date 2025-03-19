@@ -4,6 +4,7 @@
 #include <sstream>
 #include <stack>
 #include <algorithm>
+#include <limits>
 
 template <typename T> int validRPN(T token) {
     if (token.length() >= 3 || (token.length() > 1 && token[0] != '-')) {

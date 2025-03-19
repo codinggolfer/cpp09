@@ -20,6 +20,14 @@ void RPN::multiply() {
 		if (stack.empty())
 			throw("");
         int a = stack.top(); stack.pop();
+		if (a > 0 && b > 0 && a > std::numeric_limits<int>::max() / b)
+        	throw("");
+    	if (a < 0 && b < 0 && a < std::numeric_limits<int>::max() / b)
+        	throw("");
+    	if (a > 0 && b < 0 && b < std::numeric_limits<int>::min() / a)
+        	throw("");
+    	if (a < 0 && b > 0 && a < std::numeric_limits<int>::min() / b)
+        	throw("");
         stack.push(a * b);
 }
 
@@ -30,6 +38,8 @@ void RPN::plus() {
 		if (stack.empty())
 			throw("");
         int a = stack.top(); stack.pop();
+		if ((b > 0 && a > std::numeric_limits<int>::max() - b) || (b < 0 && a < std::numeric_limits<int>::min() - b))
+        	throw("");
         stack.push(a + b);
 }
 
@@ -40,6 +50,8 @@ void RPN::minus() {
 		if (stack.empty())
 			throw("");
         int a = stack.top(); stack.pop();
+		if ((b > 0 && a < std::numeric_limits<int>::min() + b) || (b < 0 && a > std::numeric_limits<int>::max() + b))
+        	throw("");
         stack.push(a - b);
 }
 
@@ -50,7 +62,9 @@ void RPN::divide() {
 		if (stack.empty())
 			throw("");
         int a = stack.top(); stack.pop();
-		if (a == 0 || b == 0)
+		if (b == 0)
+			throw("");
+		if (a == std::numeric_limits<int>::min() && b == -1)
 			throw("");
         stack.push(a / b);
 }

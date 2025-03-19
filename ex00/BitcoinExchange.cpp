@@ -21,7 +21,7 @@ bool checkDate(std::string dateStr) {
 	if (!(iss >> year >> dash1 >> month >> dash2 >> day) || dash1 != '-' || dash2 != '-') {
 		return false;
 	}
-	if (month < 1 || month > 12 || day < 1 || day > 31) {
+	if (month < 1 || month > 12 || day < 1 || day > 31 || year > 9999 || year < 2008) {
 		return false;
 	}
 	std::chrono::year_month_day ymd{
