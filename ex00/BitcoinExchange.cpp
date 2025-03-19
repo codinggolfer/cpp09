@@ -110,17 +110,16 @@ void BitcoinExchange::parseWallet(char* wallet) {
                 printBadInput(date);
                 continue;
             }
-			price = trim(price);
-			if (!isNumber(price)) {
-				printBadInput(date);
-                continue;
-			}
             try
             {
-                double amountOfBtc = static_cast<double>(std::stof(price));
+				double amountOfBtc = static_cast<double>(std::stof(price));
+				price = trim(price);
                 if (amountOfBtc > 1000.0 || amountOfBtc < 0) {
-                    printInvalidNumber(amountOfBtc);
-                }
+					printInvalidNumber(amountOfBtc);
+				}
+				else if (!isNumber(price)){
+					printBadInput(date);
+				}
                 else {
                     date = trim(date);
                     printValidInput(_exchangeRate, date, amountOfBtc);
